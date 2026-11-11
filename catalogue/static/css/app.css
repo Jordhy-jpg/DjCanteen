@@ -3430,6 +3430,24 @@
         outline-offset: 2px;
       }
     }
+    .link {
+      cursor: pointer;
+      text-decoration-line: underline;
+    }
+    .link:focus {
+      --tw-outline-style: none;
+      outline-style: none;
+    }
+    @media (forced-colors: active) {
+      .link:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+    }
+    .link:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
   }
   .resize {
     resize: both;
@@ -3448,6 +3466,9 @@
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .overflow-x-auto {
+    overflow-x: auto;
   }
   .border {
     border-style: var(--tw-border-style);
@@ -3547,6 +3568,14 @@
     }
     .tooltip-warning[data-tip]:before {
       color: var(--color-warning-content);
+    }
+    .link-hover {
+      text-decoration-line: none;
+    }
+    @media (hover: hover) {
+      .link-hover:hover {
+        text-decoration-line: underline;
+      }
     }
   }
   .prose :where(a.btn:not(.btn-link)):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
