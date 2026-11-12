@@ -5,32 +5,32 @@
 {% endblock title %}
 
 {% block body %}
-<div class="overflow-x-auto">
-  <table class="table">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th>Categories</th>
-        <th>Description</th>
-        <th>Products</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- rows -->
-      {% if categories %}
-          {% for category in categories %}
-              <tr>
-                <th>{{ category.name }}</th>
-                <td>{{ category.description }}</td>
-                <td>{{ category.products.count }}</td>
-              </tr>
-          {% endfor %}
-      {% else %}
-      <tr>
-        <td colspan="3">No categories found.</td>
-      </tr>
-      {% endif %}
-    </tbody>
-  </table>
-</div>
+    <div class="overflow-x-auto">
+      <table class="table">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th>Categories</th>
+            <th>Description</th>
+            <th>Products</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- rows -->
+          {% if categories %}
+              {% for category in categories %}
+                  <tr>
+                    <th>{{ category.name }}</th>
+                    <td>{{ category.description }}</td>
+                    <td>{{ category.products.count }}</td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="3">No categories found.</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
 {% endblock body %}
