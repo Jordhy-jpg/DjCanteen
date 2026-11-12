@@ -5,10 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{% load static %}
 	<link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+	<script src="{% static 'js/htmx.js' %}" defer></script>
 	<link rel="stylesheet" href="{% static 'css/app.css' %}">
 	<title>{% block title %} DjCanteen {% endblock title %}</title>
 </head>
-<body>
+<body hx-boost="true">
     <div class="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" />
       <div class="drawer-content">
@@ -18,10 +19,12 @@
             <!-- Sidebar toggle icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
           </label>
-          <div class="flex px-4" style="align-items: center; gap: 0.5rem;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4" aria-hidden="true"><path d="M4 3v5a2 2 0 0 0 4 0V3M6 3v18M20 21V3c-4 3-4 9 0 9"></path></svg>
-            <span>DjCanteen</span>
-          </div>
+          <a href="{% url "categories_index" %}">
+              <div class="flex px-4" style="align-items: center; gap: 0.5rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4" aria-hidden="true"><path d="M4 3v5a2 2 0 0 0 4 0V3M6 3v18M20 21V3c-4 3-4 9 0 9"></path></svg>
+                <span>DjCanteen</span>
+              </div>
+          </a>
         </nav>
         <!-- Page content here -->
         <div class="m-4">
