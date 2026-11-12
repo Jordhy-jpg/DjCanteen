@@ -5,10 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{% load static %}
 	<link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+	<script src="{% static 'js/htmx.js' %}" defer></script>
 	<link rel="stylesheet" href="{% static 'css/app.css' %}">
 	<title>{% block title %} DjCanteen {% endblock title %}</title>
 </head>
-<body>
+<body hx-boost="true">
     <div class="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" />
       <div class="drawer-content">
