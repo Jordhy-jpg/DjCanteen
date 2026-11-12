@@ -22,7 +22,7 @@
                   <tr>
                     <th>{{ category.name }}</th>
                     <td>{{ category.description }}</td>
-                    <td>{{ category.products.count }}</td>
+                    <td>{{ category.product_count }}</td>
                   </tr>
               {% endfor %}
           {% else %}
@@ -32,5 +32,24 @@
           {% endif %}
         </tbody>
       </table>
+    </div>
+    <div class="join">
+        {% if categories.has_previous %}
+            <a class="join-item btn" href="?page={{ categories.previous_page_number }}">«</a>
+        {% else %}
+            <button class="join-item btn" disabled>«</button>
+        {% endif %}
+        {% for page in categories.paginator.page_range %}
+            {% if page == categories.number %}
+                <a class="join-item btn btn-active">{{ page }}</a>
+            {% else %}
+                <a class="join-item btn" href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if categories.has_next %}
+            <a class="join-item btn" href="?page={{ categories.next_page_number }}">»</a>
+        {% else %}
+            <button class="join-item btn" disabled>»</button>
+        {% endif %}
     </div>
 {% endblock body %}

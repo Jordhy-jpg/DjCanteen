@@ -37,4 +37,23 @@
         </tbody>
         </table>
     </div>
+    <div class="join">
+        {% if products.has_previous %}
+            <a class="join-item btn" href="?page={{ products.previous_page_number }}">«</a>
+        {% else %}
+            <button class="join-item btn" disabled>«</button>
+        {% endif %}
+        {% for page in products.paginator.page_range %}
+            {% if page == products.number %}
+                <a class="join-item btn btn-active">{{ page }}</a>
+            {% else %}
+                <a class="join-item btn" href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if products.has_next %}
+            <a class="join-item btn" href="?page={{ products.next_page_number }}">»</a>
+        {% else %}
+            <button class="join-item btn" disabled>»</button>
+        {% endif %}
+    </div>
 {% endblock body %}
