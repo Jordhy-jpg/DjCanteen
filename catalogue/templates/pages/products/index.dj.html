@@ -5,55 +5,5 @@
 {% endblock title %}
 
 {% block body %}
-    <div class="overflow-x-auto">
-        <table class="table">
-        <!-- head -->
-        <thead>
-            <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- rows -->
-            {% if products %}
-                {% for product in products %}
-                    <tr>
-                    <th>{{ product.name }}</th>
-                    <td>{{ product.description }}</td>
-                    <td>Rp{{ product.price }}</td>
-                    <td>{{ product.stock }}</td>
-                    <td>{{ product.category.name }}</td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-            <tr>
-            <td colspan="4">No products found.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-        </table>
-    </div>
-    <div class="join">
-        {% if products.has_previous %}
-            <a class="join-item btn" href="?page={{ products.previous_page_number }}">«</a>
-        {% else %}
-            <button class="join-item btn" disabled>«</button>
-        {% endif %}
-        {% for page in products.paginator.page_range %}
-            {% if page == products.number %}
-                <a class="join-item btn btn-active">{{ page }}</a>
-            {% else %}
-                <a class="join-item btn" href="?page={{ page }}">{{ page }}</a>
-            {% endif %}
-        {% endfor %}
-        {% if products.has_next %}
-            <a class="join-item btn" href="?page={{ products.next_page_number }}">»</a>
-        {% else %}
-            <button class="join-item btn" disabled>»</button>
-        {% endif %}
-    </div>
+    {% include "components/products_list.dj.html" %}
 {% endblock body %}

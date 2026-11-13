@@ -20,7 +20,9 @@
           {% if categories %}
               {% for category in categories %}
                   <tr>
-                    <th>{{ category.name }}</th>
+                    <th>
+                        <a href="{% url "categories_show" category.id %}" hx-boost="true">{{ category.name }}</a>
+                    </th>
                     <td>{{ category.description }}</td>
                     <td>{{ category.product_count }}</td>
                   </tr>

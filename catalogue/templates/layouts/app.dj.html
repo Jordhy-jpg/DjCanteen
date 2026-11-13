@@ -25,6 +25,55 @@
                 <span>DjCanteen</span>
               </div>
           </a>
+          <!-- Open the modal using ID.showModal() method -->
+          <button class="btn ml-auto" onclick="add_item_modal.showModal()">Add Item</button>
+          <dialog id="add_item_modal" class="modal">
+            <div class="modal-box">
+              <h3 class="text-lg font-bold">Add Item</h3>
+              <!-- name of each tab group should be unique -->
+              <div class="tabs tabs-border mt-2">
+                <input type="radio" name="add_items_tab" class="tab" aria-label="Add Category" checked="checked"/>
+                <div class="tab-content border-base-300 bg-base-100">
+                    <form hx-post="{% url "add_category" %}" hx-target="#category-form-errors">
+                        {% csrf_token %}
+                        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
+                          {{ category_form.name }}
+                          {{ category_form.description }}
+                          <button type="submit" class="btn btn-neutral mt-4">Add Category</button>
+                        </fieldset>
+                    </form>
+                    <div id="category-form-errors" aria-live="polite"></div>
+                </div>
+
+                <input type="radio" name="add_items_tab" class="tab" aria-label="Add Product"/>
+                <div class="tab-content border-base-300 bg-base-100">
+                    <form hx-post="{% url "add_product" %}" hx-target="#product-form-errors">
+                        {% csrf_token %}
+                        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
+                            {{ product_form.category }}
+                            {{ product_form.name }}
+                            <div class="join mt-1">
+                                <label class="input w-full join-item">
+                                  <span class="label">Rp</span>
+                                  {{ product_form.price }}
+                                </label>
+                                <label class="input w-full join-item">
+                                  <span class="label">Stock</span>
+                                  {{ product_form.stock }}
+                                </label>
+                            </div>
+                            {{ product_form.description }}
+                            <button type="submit" class="btn btn-neutral mt-4">Add Product</button>
+                        </fieldset>
+                    </form>
+                    <div id="product-form-errors" aria-live="polite"></div>
+                </div>
+              </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
         </nav>
         <!-- Page content here -->
         <div class="m-4">
