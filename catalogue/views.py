@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models.aggregates import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse
 from django.views.decorators.http import require_http_methods
 
@@ -64,3 +64,10 @@ def add_product(request):
         response["HX-Location"] = reverse("products_index")
         return response
     return HttpResponse(form.errors.as_ul())
+
+def details_show(request, product_id):
+    product = get_object_or_404(
+        Product.objects.select_related("details"),
+        id=product_id
+    )
+    return render(request, "pages/details/show.dj.html", {"product": product})

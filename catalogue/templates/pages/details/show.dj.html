@@ -1,0 +1,67 @@
+{% extends "layouts/app.dj.html" %}
+
+{% block title %}
+    {{ product.name }} | DjCanteen
+{% endblock title %}
+
+{% block body %}
+    <main class="mx-auto max-w-4xl py-4 sm:py-8">
+        <a href="{% url 'products_index' %}" class="btn btn-ghost btn-sm mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+                <path d="m12 19-7-7 7-7M5 12h14" />
+            </svg>
+            Back to products
+        </a>
+
+        <article class="overflow-hidden rounded-box border border-base-300 bg-base-100">
+            <header class="p-6 sm:p-10">
+                <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+                    <div class="min-w-0">
+                        <h1 class="wrap-break-word text-3xl font-bold tracking-tight sm:text-4xl">{{ product.name }}</h1>
+                        {% if product.description %}
+                            <p class="mt-4 max-w-prose whitespace-pre-line wrap-break-word leading-relaxed text-base-content/70">{{ product.description }}</p>
+                        {% endif %}
+                    </div>
+                    <span class="badge badge-outline shrink-0 {% if product.stock %}badge-success{% else %}badge-neutral{% endif %}">
+                        {% if product.stock %}In stock{% else %}Out of stock{% endif %}
+                    </span>
+                </div>
+
+                <dl class="mt-8 flex flex-wrap gap-x-12 gap-y-5 border-t border-base-300 pt-6">
+                    <div>
+                        <dt class="text-sm text-base-content/70">Price</dt>
+                        <dd class="mt-1 text-2xl font-semibold tabular-nums">Rp {{ product.price|floatformat:2 }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm text-base-content/70">Available stock</dt>
+                        <dd class="mt-1 text-2xl font-semibold tabular-nums">{{ product.stock }} <span class="text-sm font-normal text-base-content/70">units</span></dd>
+                    </div>
+                </dl>
+            </header>
+
+            <section aria-labelledby="ingredients-heading" class="border-t border-base-300 bg-base-200 p-6 sm:p-10">
+                {% with details=product.details %}
+                    {% if details %}
+                        <div class="flex flex-col gap-8 sm:flex-row sm:justify-between">
+                            <div class="min-w-0 flex-1">
+                                <h2 id="ingredients-heading" class="text-xl font-semibold">Ingredients</h2>
+                                {% if details.ingredients %}
+                                    <p class="mt-3 max-w-prose whitespace-pre-line wrap-break-word leading-relaxed text-base-content/80">{{ details.ingredients }}</p>
+                                {% else %}
+                                    <p class="mt-3 text-base-content/70">Ingredients haven't been added yet.</p>
+                                {% endif %}
+                            </div>
+                            <dl class="shrink-0 border-l-4 border-primary pl-5">
+                                <dt class="text-sm text-base-content/70">Calories</dt>
+                                <dd class="mt-1 text-3xl font-semibold tabular-nums">{{ details.calories|floatformat:"-2" }} <span class="text-sm font-normal text-base-content/70">kcal</span></dd>
+                            </dl>
+                        </div>
+                    {% else %}
+                        <h2 id="ingredients-heading" class="text-xl font-semibold">Ingredients &amp; nutrition</h2>
+                        <p class="mt-3 text-base-content/70">Ingredients and calorie information haven't been added for this product yet.</p>
+                    {% endif %}
+                {% endwith %}
+            </section>
+        </article>
+    </main>
+{% endblock body %}
