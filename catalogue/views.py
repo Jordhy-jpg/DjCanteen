@@ -1,11 +1,12 @@
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models.aggregates import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse
 from django.views.decorators.http import require_http_methods
 
-from catalogue.forms import CategoryForm, ProductForm
+from catalogue.forms import CategoryForm, DetailForm, ProductForm
 
 from .models import Category, Product
 
@@ -32,7 +33,11 @@ def categories_show(request, category_id):
     page_number = request.GET.get("page")
     products = paginator.get_page(page_number)
 
-    return render(request, "pages/categories/show.dj.html", {"products": products, "disable_products_list_link": True})
+    return render(
+        request,
+        "pages/categories/show.dj.html",
+        {"products": products, "disable_products_list_link": True},
+    )
 
 
 def products_index(request):
@@ -58,9 +63,23 @@ def add_category(request):
 @require_http_methods(["POST"])
 def add_product(request):
     form = ProductForm(request.POST)
-    if form.is_valid():
-        form.save()
+    detail_form = DetailForm(request.POST)
+    product_valid = form.is_valid()
+    details_valid = detail_form.is_valid()
+    if product_valid and details_valid:
+        with transaction.atomic():
+            product = form.save()
+            details = detail_form.save(commit=False)
+            details.product = product
+            details.save()
         response = HttpResponse()
         response["HX-Location"] = reverse("products_index")
         return response
-    return HttpResponse(form.errors.as_ul())
+    return HttpResponse(form.errors.as_ul() + detail_form.errors.as_ul())
+
+
+def details_show(request, product_id):
+    product = get_object_or_404(
+        Product.objects.select_related("details"), id=product_id
+    )
+    return render(request, "pages/details/show.dj.html", {"product": product})

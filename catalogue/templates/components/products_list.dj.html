@@ -15,7 +15,11 @@
         {% if products %}
             {% for product in products %}
                 <tr>
-                <th>{{ product.name }}</th>
+                <th>
+                    <a href="{% url "details_show" product.id %}">
+                        {{ product.name }}
+                    </a>
+                </th>
                 <td>
                     {% if disable_products_list_link %}
                         {{ product.category.name }}
