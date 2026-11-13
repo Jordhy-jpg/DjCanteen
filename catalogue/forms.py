@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Category, Product
+from .models import Category, Detail, Product
 
 
 class CategoryForm(forms.ModelForm):
@@ -38,9 +38,26 @@ class ProductForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={
                     "class": "textarea w-full mt-1",
-                    "placeholder": "Product Description",
+                    "placeholder": "Product Description (optional)",
                 }
             ),
             "price": forms.NumberInput(),
             "stock": forms.NumberInput(),
+        }
+
+
+class DetailForm(forms.ModelForm):
+    class Meta:
+        model = Detail
+        fields = ["calories", "ingredients"]
+        widgets = {
+            "calories": forms.NumberInput(attrs={"aria-label": "Calories (kcal)"}),
+            "ingredients": forms.Textarea(
+                attrs={
+                    "class": "textarea w-full mt-1",
+                    "placeholder": "Ingredients (optional)",
+                    "aria-label": "Ingredients (optional)",
+                    "rows": 3,
+                }
+            ),
         }

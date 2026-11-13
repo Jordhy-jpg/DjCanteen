@@ -63,6 +63,11 @@
                                 </label>
                             </div>
                             {{ product_form.description }}
+                            <label class="input w-full mt-1">
+                                <span class="label">kcal</span>
+                                {{ detail_form.calories }}
+                            </label>
+                            {{ detail_form.ingredients }}
                             <button type="submit" class="btn btn-neutral mt-4">Add Product</button>
                         </fieldset>
                     </form>
