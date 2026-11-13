@@ -46,7 +46,28 @@
                 </div>
 
                 <input type="radio" name="add_items_tab" class="tab" aria-label="Add Product"/>
-                <div class="tab-content border-base-300 bg-base-100 p-10">This is the product tab</div>
+                <div class="tab-content border-base-300 bg-base-100">
+                    <form hx-post="{% url "add_product" %}" hx-target="#product-form-errors">
+                        {% csrf_token %}
+                        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
+                            {{ product_form.category }}
+                            {{ product_form.name }}
+                            <div class="join mt-1">
+                                <label class="input w-full join-item">
+                                  <span class="label">Rp</span>
+                                  {{ product_form.price }}
+                                </label>
+                                <label class="input w-full join-item">
+                                  <span class="label">Stock</span>
+                                  {{ product_form.stock }}
+                                </label>
+                            </div>
+                            {{ product_form.description }}
+                            <button type="submit" class="btn btn-neutral mt-4">Add Product</button>
+                        </fieldset>
+                    </form>
+                    <div id="product-form-errors" aria-live="polite"></div>
+                </div>
               </div>
             </div>
             <form method="dialog" class="modal-backdrop">

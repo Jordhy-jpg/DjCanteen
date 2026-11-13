@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls.base import reverse
 from django.views.decorators.http import require_http_methods
 
-from catalogue.forms import CategoryForm
+from catalogue.forms import CategoryForm, ProductForm
 
 from .models import Category, Product
 
@@ -38,5 +38,16 @@ def add_category(request):
         form.save()
         response = HttpResponse()
         response["HX-Location"] = reverse("categories_index")
+        return response
+    return HttpResponse(form.errors.as_ul())
+
+
+@require_http_methods(["POST"])
+def add_product(request):
+    form = ProductForm(request.POST)
+    if form.is_valid():
+        form.save()
+        response = HttpResponse()
+        response["HX-Location"] = reverse("products_index")
         return response
     return HttpResponse(form.errors.as_ul())

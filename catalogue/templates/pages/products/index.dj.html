@@ -11,10 +11,10 @@
         <thead>
             <tr>
             <th>Name</th>
+            <th>Category</th>
             <th>Description</th>
             <th>Price</th>
             <th>Stock</th>
-            <th>Category</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +23,10 @@
                 {% for product in products %}
                     <tr>
                     <th>{{ product.name }}</th>
+                    <td>{{ product.category.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>Rp{{ product.price }}</td>
                     <td>{{ product.stock }}</td>
-                    <td>{{ product.category.name }}</td>
                     </tr>
                 {% endfor %}
             {% else %}
