@@ -22,6 +22,19 @@ def categories_index(request):
     return render(request, "pages/categories/index.dj.html", {"categories": categories})
 
 
+def category_show(request, category_id):
+    queryset = (
+        Product.objects.filter(category=category_id)
+        .select_related("category")
+        .order_by("-id")
+    )
+    paginator = Paginator(queryset, 5)
+    page_number = request.GET.get("page")
+    products = paginator.get_page(page_number)
+
+    return render(request, "pages/categories/show.dj.html", {"products": products})
+
+
 def products_index(request):
     queryset = Product.objects.select_related("category").order_by("-id")
     paginator = Paginator(queryset, 10)
