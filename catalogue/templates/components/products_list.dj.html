@@ -16,7 +16,13 @@
             {% for product in products %}
                 <tr>
                 <th>{{ product.name }}</th>
-                <td>{{ product.category.name }}</td>
+                <td>
+                    {% if disable_products_list_link %}
+                        {{ product.category.name }}
+                    {% else %}
+                        <a href="{% url "categories_show" product.category.id %}" hx-boost="true">{{ product.category.name }}</a>
+                    {% endif %}
+                </td>
                 <td>{{ product.description }}</td>
                 <td>Rp{{ product.price }}</td>
                 <td>{{ product.stock }}</td>

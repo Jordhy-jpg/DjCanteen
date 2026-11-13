@@ -22,7 +22,7 @@ def categories_index(request):
     return render(request, "pages/categories/index.dj.html", {"categories": categories})
 
 
-def category_show(request, category_id):
+def categories_show(request, category_id):
     queryset = (
         Product.objects.filter(category=category_id)
         .select_related("category")
@@ -32,7 +32,7 @@ def category_show(request, category_id):
     page_number = request.GET.get("page")
     products = paginator.get_page(page_number)
 
-    return render(request, "pages/categories/show.dj.html", {"products": products})
+    return render(request, "pages/categories/show.dj.html", {"products": products, "disable_products_list_link": True})
 
 
 def products_index(request):
